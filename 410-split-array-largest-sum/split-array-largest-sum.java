@@ -14,20 +14,16 @@ class Solution {
         while(low <= high){
             int mid = (low + high)/2;
             int cnt = cntSub(nums , mid);
-            if(cnt == k){
-                ans = calcSum(nums , mid);
-                high = mid - 1;
-            }
-            else if(cnt > k){
+            if(cnt > k){
                 low = mid + 1;
             }else{
                 high = mid - 1;
             }
         }
-        if(ans == -1){
-            return low;
-        }
-        return ans;
+        // if(ans == -1){
+        //     return low;
+        // }
+        return low;
         
     }
     public int cntSub(int[] arr , int mid){
@@ -43,18 +39,18 @@ class Solution {
         }
         return cnt;
     }
-    public int calcSum(int arr[] , int mid){
-        int currSum = 0;
-        int maxSum = 0;
-        for(int i = 0 ; i < arr.length ; i++){
-            if(currSum + arr[i] <= mid){
-                currSum += arr[i];
-            }else{
-                currSum = arr[i];
-            }
-            maxSum = Math.max(maxSum , currSum);
-        }
-        return maxSum;
+    // public int calcSum(int arr[] , int mid){
+    //     int currSum = 0;
+    //     int maxSum = 0;
+    //     for(int i = 0 ; i < arr.length ; i++){
+    //         if(currSum + arr[i] <= mid){
+    //             currSum += arr[i];
+    //         }else{
+    //             currSum = arr[i];
+    //         }
+    //         maxSum = Math.max(maxSum , currSum);
+    //     }
+    //     return maxSum;
 
-    }
+    // }
 }
