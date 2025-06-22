@@ -1,32 +1,27 @@
 class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
-        int n = triangle.size();
-        if(triangle.size() <= 0){
-            return 0;
+        int indx = 0;
+        int dp[][] = new int[triangle.size()][triangle.size()];
+        for(int r[] : dp){
+            Arrays.fill(r , -1);
         }
-        // int ans = solve(0 , 0 , triangle);
-        int dp[][] = new int[n][n];
-        for(int i=0; i<n ; i++){
-            dp[n-1][i] = triangle.get(n-1).get(i);
-        }
-
-        for(int i=n-2 ; i>=0 ; i--){
-            for(int j=i ; j>=0 ; j--){
-                dp[i][j] = triangle.get(i).get(j)+Math.min(dp[i+1][j] , dp[i+1][j+1]);
-            }
-        }
-        return dp[0][0];
-        
+        return solve(triangle , indx , 0, dp);
         
     }
-    public int solve(int indx,int li,List<List<Integer>> triangle){
-        if(li == triangle.size()-1){
-            return triangle.get(li).get(indx); 
+    public int solve(List<List<Integer>> list, int indx, int ls, int[][]dp){
+        if(ls == list.size()){
+            return 0;
         }
-        int take = solve(indx , li+1,triangle);
-        int notTake = solve(indx+1 , li+1,triangle);
+        if(ls == list.size()-1){
+            return list.get(ls).get(indx);
+        }
+        if(dp[ls][indx] != -1){
+            return dp[ls][indx];
+        }
+        int take = list.get(ls).get(indx) + solve(list , indx , ls+1,dp);
+        int notTake = list.get(ls).get(indx) + solve(list , indx+1 , ls+1,dp);
 
-        return triangle.get(li).get(indx)+Math.min(take , notTake);
+        return dp[ls][indx] = Math.min(take , notTake);
 
     }
 }
