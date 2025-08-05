@@ -9,6 +9,8 @@ class Solution {
             this.len = len;
         }
     }
+    int delrow[] = {-1,0,1,0,-1,-1,1,1};
+    int delcol[] = {0,1,0,-1,-1,1,-1,1};
     public int shortestPathBinaryMatrix(int[][] grid) {
         int[][] dist = new int[grid.length][grid[0].length];
         for(int[]r : dist){
@@ -24,9 +26,6 @@ class Solution {
             int row = p.row;
             int col = p.col;
             int len = p.len;
-
-            int delrow[] = {-1,0,1,0,-1,-1,1,1};
-            int delcol[] = {0,1,0,-1,-1,1,-1,1};
             for(int i=0 ; i<8 ; i++){
                 int nrow = delrow[i] + row;
                 int ncol = delcol[i] + col;
