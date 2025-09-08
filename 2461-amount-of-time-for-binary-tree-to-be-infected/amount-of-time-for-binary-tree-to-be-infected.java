@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    TreeNode target = null;
     public void LevelOrder(TreeNode root , HashMap<TreeNode , TreeNode> map,int start){
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
@@ -21,6 +22,9 @@ class Solution {
             int size = q.size();
             for(int i=0 ; i<size ; i++){
                 TreeNode curr = q.remove();
+                if(curr.val == start){
+                    target = curr;
+                }
                 if(curr.left != null){
                     q.add(curr.left);
                     map.put(curr.left ,curr);
@@ -32,25 +36,12 @@ class Solution {
             }
         }
     }
-    public TreeNode findTarget(TreeNode root, int start){
-        if(root == null){
-            return null;
-        }
-        if(root.val== start){
-            return root;
-        }
-        TreeNode left = findTarget(root.left , start);
-        if(left != null){
-            return left;
-        }
-        return findTarget(root.right , start);
-    }
     public int amountOfTime(TreeNode root, int start) {
         HashMap<TreeNode , TreeNode> map = new HashMap<>();
         LevelOrder(root , map,start);
         Queue<TreeNode> q = new LinkedList<>();
         HashMap<TreeNode , Boolean> vis = new HashMap<>();
-        TreeNode target = findTarget(root , start);
+        
         int min = 0;
         q.add(target);
         vis.put(target,true);
