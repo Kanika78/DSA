@@ -7,11 +7,10 @@ class Solution {
             if(num == 0){
                 break;
             }
-            int times = num/val[i];
-            for(int j=0 ; j<times ;j++){
+            while (num >= val[i]) {
+                num -= val[i];
                 s += symbol[i];
             }
-            num = num % val[i];
         }
         return s;
         
