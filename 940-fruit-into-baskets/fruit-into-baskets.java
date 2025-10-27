@@ -11,7 +11,7 @@ class Solution {
             }else{
                 map.put(fruits[r],1);
             }
-            while(map.size() > 2){
+            if(map.size() > 2){
                 map.put(fruits[l] , map.get(fruits[l])-1);
                 if(map.get(fruits[l]) == 0){
                     map.remove(fruits[l]);
