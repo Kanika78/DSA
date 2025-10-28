@@ -1,24 +1,20 @@
 class Solution {
+    //this solution is better with space complexity(works well with +&-)
     public int numSubarraysWithSum(int[] nums, int goal) {
-        return subarray(nums , goal) - subarray(nums , goal-1);
-    }
-    public int subarray(int[] nums, int goal){
-        if(goal < 0){
-            return 0;
-        }
-        int l = 0;
-        int r = 0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        map.put(0,1);
+        int prefixSum = 0;
         int sum = 0;
         int cnt = 0;
-        while(r < nums.length){
-            sum += nums[r];
-            while(sum > goal){
-                sum -= nums[l];
-                l++;
+        for(int i=0 ; i<nums.length ; i++){
+            sum += nums[i];
+            prefixSum = sum - goal;
+            if(map.containsKey(prefixSum)){
+                cnt += map.get(prefixSum);
             }
-            cnt += r-l+1;
-            r++;
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
         return cnt;
+        
     }
 }
