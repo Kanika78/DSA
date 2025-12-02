@@ -2,30 +2,25 @@
 class Solution {
     public ArrayList<Integer> subsetSums(int[] arr) {
         // code here
-        ArrayList<Integer> list = new ArrayList<>();
-        ArrayList<Integer> ds = new ArrayList<>();
+        List<Integer> inner = new ArrayList<>();
+        ArrayList<Integer> ans = new ArrayList<>();
+        helper(0 , inner , ans , arr);
+        Collections.sort(ans);
+        return ans;
         
-        helper(0 , arr , list,ds);
-        return list;
     }
-    public void helper(int indx ,int[] arr,ArrayList<Integer> list,ArrayList<Integer>ds){
-        if(indx == arr.length){
-            if(ds.size() < 1){
-                list.add(0);
-                return;
-            }
+    public void helper(int indx,List<Integer>inner ,ArrayList<Integer> ans, int[] nums){
+        if(indx >= nums.length){
             int sum = 0;
-            for(int i=0 ; i<ds.size() ; i++){
-                sum += ds.get(i);
+            for(int i=0 ; i<inner.size() ; i++){
+                sum += inner.get(i);
             }
-            list.add(sum);
+            ans.add(sum);
             return;
         }
-        ds.add(arr[indx]);
-        helper(indx+1, arr, list,ds);
-        ds.remove(ds.size()-1);
-        helper(indx+1, arr, list,ds);
-        
+        inner.add(nums[indx]);
+        helper(indx+1 , inner , ans , nums);
+        inner.remove(inner.size()-1);
+        helper(indx+1 , inner , ans , nums);
     }
-    
 }
