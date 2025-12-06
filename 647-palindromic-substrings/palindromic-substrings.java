@@ -1,0 +1,21 @@
+class Solution {
+    public int countSubstrings(String s) {
+        int count = 0;
+        for(int i=0 ; i<s.length(); i++){
+            count += expand(s , i , i); // odd len
+            count += expand(s , i , i+1); // even len
+        }
+        return count;
+        
+    }
+    public int expand(String s , int left , int right){
+        int cnt = 0;
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            cnt++;
+            left--;
+            right++;
+        }
+        return cnt;
+        
+    }
+}
